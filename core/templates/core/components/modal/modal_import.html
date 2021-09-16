@@ -1,0 +1,30 @@
+{% load i18n l10n static %}
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{% url 'core:store_import_create_view' %}"
+                  method="post"
+                  id="import_form_id"
+                  enctype="multipart/form-data"
+                  {% if form_submitted %}class="was-validated" {% endif %}>
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="row">
+                            <input type="file"  required name="importFile" class="btn btn-primary col-md-12"  >
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">{% trans 'Cancelar' %}</button>
+                    <button type="submit" class="btn btn-primary">{% trans 'Importar Arquivo' %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

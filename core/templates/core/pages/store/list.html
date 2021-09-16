@@ -1,0 +1,120 @@
+{% extends 'core/base.html' %}
+{% load i18n l10n static %}
+
+{% block extra_css %}
+    <link href="{% static 'core/base/vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    {% include 'core/components/modal/modal_import.html' %}
+
+    <!-- Page Heading -->
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{% trans 'Empresas' %}</h1>
+        <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+           data-toggle="modal" data-target="#importModal"
+        ><i
+                class="fas fa-download fa-sm text-white-50" style="margin-right: 10px"></i>{% trans 'Importar novo aquivo' %}</a>
+    </div>
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-md-4 " style="margin-bottom: 16px">
+            <form method="GET">
+                <div class="input-group">
+                    <input type="text" value="{{ q }}" name="q" class="form-control bg-white border-0 small" placeholder="{% trans 'Buscar por Empresa ou Empresário' %}" aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                    <thead class="btn-primary">
+                    <tr>
+                        <th>{% trans 'Empresa' %}</th>
+                        <th>{% trans 'Empresário' %}</th>
+                        <th>{% trans 'Total Importações' %}</th>
+                        <th>{% trans 'Total Entradas' %}</th>
+                        <th>{% trans 'Total Saídas' %}</th>
+                        <th>{% trans 'Saldo em Conta' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for company in object_list %}
+                        <tr>
+                            <td>{{ company.name }}</td>
+                            <td>{{ company.owner.name }}</td>
+                            <td>{{ company.total_imports }}</td>
+                            <td>{{ company.total_in }}</td>
+                            <td>{{ company.total_out }}</td>
+                            <td>R$: {{ company.total_balance|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+    <script src="{% static 'core/base/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'core/base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'core/base/js/demo/datatables-demo.js' %}"></script>
+    <script>
+        $('#dataTable2').DataTable({
+            searching: false,
+            language: {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+            },
+        });
+
+        {#"language": {#}
+        {#"sProcessing":    "Procesando...",#}
+        {#"sLengthMenu":    "Mostrar _MENU_ registros",#}
+        {#"sZeroRecords":   "No se encontraron resultados",#}
+        {#"sEmptyTable":    "Ningún dato disponible en esta tabla",#}
+        {#"sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",#}
+        {#"sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",#}
+        {#"sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",#}
+        {#"sInfoPostFix":   "",#}
+        {#"sSearch":        "Buscar:",#}
+        {#"sUrl":           "",#}
+        {#"sInfoThousands":  ",",#}
+        {#"sLoadingRecords": "Cargando...",#}
+        {#"oPaginate": {#}
+        {#    "sFirst":    "Primero",#}
+        {#    "sLast":    "Último",#}
+        {#    "sNext":    "Siguiente",#}
+        {#    "sPrevious": "Anterior"#}
+        {# },#}
+    </script>
+{% endblock %}
