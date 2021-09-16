@@ -11,6 +11,18 @@
 
     <!-- Page Heading -->
 
+    <div class="col-sm-12 col-xs-12">
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible show m-t-lg m-b-none"
+                 role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{% trans 'Empresas' %}</h1>
         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
