@@ -1,0 +1,38 @@
+{
+  "1": {
+    "description": "Débito",
+    "operation": "ENTRADA"
+  },
+  "2": {
+    "description": "Boleto",
+    "operation": "SAIDA"
+  },
+  "3": {
+    "description": "Financiamento",
+    "operation": "SAIDA"
+  },
+  "4": {
+    "description": "Crédito",
+    "operation": "ENTRADA"
+  },
+  "5": {
+    "description": "Recebimento Empréstimo",
+    "operation": "ENTRADA"
+  },
+  "6": {
+    "description": "Vendas",
+    "operation": "ENTRADA"
+  },
+  "7": {
+    "description": "Recebimento TED",
+    "operation": "ENTRADA"
+  },
+  "8": {
+    "description": "Recebimento DOC",
+    "operation": "ENTRADA"
+  },
+  "9": {
+    "description": "Aluguel",
+    "operation": "SAIDA"
+  }
+}

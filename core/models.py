@@ -2,7 +2,7 @@ from django.db import models
 
 
 def create_path_import_file(instance, filename):
-    directory = 'file/id_store/{}/import/'.format(instance.store.id)
+    directory = 'file/import/'
     full_path = str(directory) + "/%s" % (filename)
     return full_path
 
@@ -20,7 +20,9 @@ class TimestampableMixin(models.Model):
     class Meta:
         abstract = True
 
+
 class Owner(TimestampableMixin):
+    document = models.CharField(max_length=18, null=True, unique=True)
     name = models.CharField(max_length=120)
 
 
@@ -30,20 +32,19 @@ class Store(TimestampableMixin):
 
 
 class TransactionType(models.Model):
-    cod = models.IntegerField()
+    cod = models.IntegerField(unique=True)
     description = models.CharField(max_length=255)
     operation = models.CharField(max_length=10, choices=OperationChocie)
+
+
+class ImportCNAB(TimestampableMixin):
+    file = models.FileField(upload_to=create_path_import_file)
 
 
 class TransactionStore(TimestampableMixin):
     type = models.ForeignKey(TransactionType, on_delete=models.PROTECT)
     store = models.ForeignKey(Store, on_delete=models.PROTECT)
+    file = models.ForeignKey(ImportCNAB, on_delete=models.PROTECT, null=True, blank=True)
     date = models.DateTimeField()
     value = models.DecimalField(max_digits=15, decimal_places=2)
-    documentRecipient = models.CharField(max_length=18)
-    numberCard = models.IntegerField()
-
-
-class ImportCNAD(TimestampableMixin):
-    file = models.FileField(upload_to=create_path_import_file)
-    store = models.ForeignKey(Store, on_delete=models.PROTECT, blank=True)
+    number_card = models.CharField(max_length=20, null=True)
