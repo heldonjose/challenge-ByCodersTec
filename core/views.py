@@ -8,7 +8,7 @@ from django.views.generic import TemplateView, ListView, CreateView
 
 from core.forms import ImportCNABForm
 from core.internal_Objects import ImportLine
-from core.models import Store, ImportCNAB
+from core.models import Company, ImportCNAB
 
 
 class RedirecAuthenticationView(TemplateView):
@@ -23,7 +23,7 @@ class LoginView(TemplateView):
 
 
 class StoreListView(ListView):
-    model = Store
+    model = Company
     template_name = 'core/pages/store/list.html'
 
 

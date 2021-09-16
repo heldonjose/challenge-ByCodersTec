@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from core.internal_Objects import ImportLine
-from core.models import ImportCNAB, Owner, Store, TransactionType, TransactionStore
+from core.models import ImportCNAB, Owner, Company, TransactionType, TransactionStore
 from projeto import settings
 
 
@@ -21,7 +21,7 @@ def post_save_Import_CNAB(sender, instance, created=False, **kwargs):
             owner, _ = Owner.objects.get_or_create(
                 document=line.document_owner, name=line.name_owner
             )
-            store, _ = Store.objects.get_or_create(
+            store, _ = Company.objects.get_or_create(
                 owner=owner, name=line.name_store
             )
             try:

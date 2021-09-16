@@ -19,12 +19,18 @@ class TransactionTypeAdmin(admin.ModelAdmin):
 
 @admin.register(TransactionStore)
 class TransactionStoreAdmin(admin.ModelAdmin):
-    list_display = ('get_type', 'get_store', 'date', 'value', 'number_card')
+    list_filter = ('store', 'type__operation')
+    list_display = ('get_type','get_operation',  'get_store', 'date', 'value', 'number_card')
 
     def get_store(self, obj):
         return obj.store.name
     get_store.short_description = 'Store'
     get_store.admin_order_field = 'store__name'
+
+    def get_operation(self, obj):
+        return obj.type.operation
+    get_operation.short_description = 'Operation'
+    get_operation.admin_order_field = 'type__operation'
 
     def get_type(self, obj):
         return obj.type.description

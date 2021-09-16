@@ -13,7 +13,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{% trans 'Empresas' %}</h1>
         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-            data-toggle="modal" data-target="#importModal"
+           data-toggle="modal" data-target="#importModal"
         ><i
                 class="fas fa-download fa-sm text-white-50" style="margin-right: 10px"></i>{% trans 'Importar novo aquivo' %}</a>
     </div>
@@ -25,6 +25,7 @@
                     <thead class="btn-primary">
                     <tr>
                         <th>{% trans 'Empresa' %}</th>
+                        <th>{% trans 'Empresário' %}</th>
                         <th>{% trans 'Total Importações' %}</th>
                         <th>{% trans 'Total Entradas' %}</th>
                         <th>{% trans 'Total Saídas' %}</th>
@@ -32,13 +33,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Nome</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>2011/04/25</td>
-                    </tr>
+                    {% for company in object_list %}
+                        <tr>
+                            <td>{{ company.name }}</td>
+                            <td>{{ company.owner.name }}</td>
+                            <td>{{ company.total_imports }}</td>
+                            <td>{{ company.total_in }}</td>
+                            <td>{{ company.total_out }}</td>
+                            <td>R$: {{ company.total_balance|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
