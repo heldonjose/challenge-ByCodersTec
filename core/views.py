@@ -1,5 +1,7 @@
 import codecs
-from django.contrib.auth import  login as django_login
+
+from django.contrib import messages
+from django.contrib.auth import login as django_login, logout
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, RedirectView
 from extra_views import SearchableListMixin
 from core.models import Company, ImportCNAB
 
@@ -29,7 +31,13 @@ class LoginView(TemplateView):
         if user:
             django_login(request, user)
             return redirect('core:store_list_view')
+        messages.error(request, 'Login ou senha inválida')
+        return redirect('core:login')
 
+class LogoutRedirectViews(RedirectView):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('core:redirect_authentication')
 
 class StoreListView(LoginRequiredMixin, SearchableListMixin, ListView):
     model = Company
@@ -50,4 +58,5 @@ class ImportFileCreateView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         ImportCNAB.objects.create(file=request.FILES.get('importFile'))
+        messages.success(request, 'Arquivo importando com sucesso!')
         return HttpResponseRedirect(self.success_url)

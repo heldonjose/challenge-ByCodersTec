@@ -30,6 +30,7 @@
                         <div class="col-md-12">
                             <div class="p-5">
                                 <div class="text-center">
+
                                     <h1 class="h4 text-gray-900 mb-4">{% trans 'Bem-Vindo' %}</h1>
                                 </div>
                                 <form class="user" method="post">
@@ -48,6 +49,15 @@
                                     </button>
                                 </form>
                                 <hr>
+                                {% for message in messages %}
+                                    <div class="row">
+                                        <div class="card bg-danger text-white col-md-12">
+                                            <div class="card-body text-center">
+                                                {{ message }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
