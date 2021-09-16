@@ -34,6 +34,6 @@ class TransactionStore(TimestampableMixin):
     documentRecipient = models.CharField(max_length=18)
     numberCard = models.IntegerField()
 
-class importCNAD(TimestampableMixin):
+class ImportCNAD(TimestampableMixin):
     file = models.FileField(upload_to=create_path_import_file)
     store = models.ForeignKey(Store, on_delete=models.PROTECT)
